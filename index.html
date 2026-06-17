@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibePlay</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topo">
+        <nav class="menu">
+            <a class="logo" href="#inicio">VibePlay</a>
+            <button id="botaoMenu" class="botao-menu" type="button" aria-label="Abrir menu">☰</button>
+            <ul id="linksMenu">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#arcade">Arcade</a></li>
+                <li><a href="#quiz">Quiz</a></li>
+                <li><a href="#mural">Mural</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-texto">
+                <p class="tag">entretenimento neon</p>
+                <h1>VibePlay</h1>
+                <p>Um site simples para jogar, fazer um quiz divertido e deixar um recado no mural.</p>
+                <a class="botao principal" href="#arcade">Jogar agora</a>
+            </div>
+
+            <div class="cards">
+                <article>
+                    <span>01</span>
+                    <h2>Neon Dodge</h2>
+                    <p>Desvie dos blocos, faça pontos e tente entrar no ranking.</p>
+                </article>
+                <article>
+                    <span>02</span>
+                    <h2>Quiz da Vibe</h2>
+                    <p>Descubra seu perfil de entretenimento com perguntas rápidas.</p>
+                </article>
+                <article>
+                    <span>03</span>
+                    <h2>Mural</h2>
+                    <p>Escreva um recado curto para deixar sua marca no site.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="arcade" class="secao">
+            <div class="titulo">
+                <p class="tag">jogo arcade</p>
+                <h2>Neon Dodge</h2>
+                <p>Use as setas, WASD ou os botões do celular para fugir dos obstáculos.</p>
+            </div>
+
+            <div class="arcade-grid">
+                <div class="jogo">
+                    <div class="placar">
+                        <strong>Pontos: <span id="pontos">0</span></strong>
+                        <strong>Vidas: <span id="vidas">3</span></strong>
+                        <strong>Nível: <span id="nivel">1</span></strong>
+                    </div>
+
+                    <canvas id="canvasJogo" width="760" height="420"></canvas>
+
+                    <div class="controles">
+                        <button id="iniciarJogo" class="botao principal" type="button">Iniciar</button>
+                        <button id="pausarJogo" class="botao" type="button">Pausar</button>
+                    </div>
+
+                    <div class="controles-mobile">
+                        <button data-move="left" type="button">←</button>
+                        <button data-move="up" type="button">↑</button>
+                        <button data-move="down" type="button">↓</button>
+                        <button data-move="right" type="button">→</button>
+                    </div>
+
+                    <form id="formRanking" class="form-ranking escondido">
+                        <h3>Fim de jogo</h3>
+                        <p>Sua pontuação foi <span id="pontosFinais">0</span>.</p>
+                        <input id="nomeJogador" type="text" maxlength="18" placeholder="Seu nome">
+                        <button class="botao principal" type="submit">Salvar no ranking</button>
+                    </form>
+                </div>
+
+                <aside class="painel">
+                    <h3>Ranking local</h3>
+                    <ol id="listaRanking"></ol>
+                    <p class="aviso">No GitHub Pages, o ranking fica salvo no navegador de cada pessoa.</p>
+                </aside>
+            </div>
+        </section>
+
+        <section id="quiz" class="secao">
+            <div class="titulo">
+                <p class="tag">quiz interativo</p>
+                <h2>Qual é sua vibe de entretenimento?</h2>
+            </div>
+
+            <div class="quiz-box">
+                <p id="contadorQuiz"></p>
+                <h3 id="perguntaQuiz"></h3>
+                <div id="opcoesQuiz" class="opcoes"></div>
+
+                <div id="resultadoQuiz" class="resultado escondido">
+                    <h3 id="tituloResultado"></h3>
+                    <p id="textoResultado"></p>
+                    <button id="refazerQuiz" class="botao principal" type="button">Refazer quiz</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="mural" class="secao">
+            <div class="titulo">
+                <p class="tag">mural da galera</p>
+                <h2>Deixe seu recado</h2>
+            </div>
+
+            <div class="mural-grid">
+                <form id="formMural" class="formulario">
+                    <label for="nomeRecado">Nome</label>
+                    <input id="nomeRecado" type="text" maxlength="25" placeholder="Seu nome">
+
+                    <label for="mensagemRecado">Mensagem</label>
+                    <textarea id="mensagemRecado" maxlength="120" rows="4" placeholder="Escreva até 120 caracteres"></textarea>
+
+                    <button class="botao principal" type="submit">Enviar</button>
+                    <p id="erroMural" class="erro"></p>
+                </form>
+
+                <div>
+                    <h3>Recados</h3>
+                    <div id="listaRecados" class="recados"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <strong>VibePlay</strong>
+        <p>Projeto simples de entretenimento feito com HTML, CSS e JavaScript para GitHub Pages.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
