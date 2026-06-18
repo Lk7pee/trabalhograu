@@ -3,16 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VibePlay</title>
+    <meta name="description" content="VibePlay: entretenimento neon com jogo arcade, quiz de personalidade e mural de recados.">
+    <meta name="theme-color" content="#0d0c0a">
+    <title>VibePlay | Jogue, descubra sua vibe e deixe sua marca</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="topo">
-        <nav class="menu">
-            <a class="logo" href="#inicio">VibePlay</a>
-            <button id="botaoMenu" class="botao-menu" type="button" aria-label="Abrir menu">☰</button>
-            <ul id="linksMenu">
+    <a class="atalho-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="topo" id="topo">
+        <nav class="menu container" aria-label="Navegação principal">
+            <a class="logo" href="#inicio" aria-label="VibePlay - voltar ao início">
+                <span class="logo-sinal" aria-hidden="true"></span>
+                Vibe<span>Play</span>
+            </a>
+
+            <button
+                id="botaoMenu"
+                class="botao-menu"
+                type="button"
+                aria-label="Abrir menu"
+                aria-controls="linksMenu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul id="linksMenu" class="links-menu">
                 <li><a href="#inicio">Início</a></li>
+                <li><a href="#destaques">Destaques</a></li>
                 <li><a href="#arcade">Arcade</a></li>
                 <li><a href="#quiz">Quiz</a></li>
                 <li><a href="#mural">Mural</a></li>
@@ -20,127 +41,384 @@
         </nav>
     </header>
 
-    <main>
+    <main id="conteudo">
         <section id="inicio" class="hero">
-            <div class="hero-texto">
-                <p class="tag">entretenimento neon</p>
-                <h1>VibePlay</h1>
-                <p>Um site simples para jogar, fazer um quiz divertido e deixar um recado no mural.</p>
-                <a class="botao principal" href="#arcade">Jogar agora</a>
+            <div class="hero-orbe hero-orbe-um" aria-hidden="true"></div>
+            <div class="hero-orbe hero-orbe-dois" aria-hidden="true"></div>
+
+            <div class="container hero-grid">
+                <div class="hero-texto">
+                    <p class="eyebrow"><span></span> Seu portal de entretenimento</p>
+                    <h1>Entre no ritmo.<br><span>Jogue sua vibe.</span></h1>
+                    <p class="hero-descricao">
+                        Uma experiência neon com desafio arcade, quiz de personalidade e um mural
+                        feito para você deixar sua marca.
+                    </p>
+
+                    <div class="hero-acoes" aria-label="Acessos rápidos">
+                        <a class="botao botao-primario" href="#arcade">
+                            <span aria-hidden="true">▶</span> Jogar agora
+                        </a>
+                        <a class="botao botao-secundario" href="#quiz">Fazer quiz</a>
+                        <a class="link-seta" href="#mural">Ver mural <span aria-hidden="true">→</span></a>
+                    </div>
+
+                    <ul class="hero-indicadores" aria-label="Recursos do VibePlay">
+                        <li><strong>100%</strong><span>gratuito</span></li>
+                        <li><strong>3</strong><span>experiências</span></li>
+                        <li><strong>Local</strong><span>dados privados</span></li>
+                    </ul>
+                </div>
+
+                <div class="hero-visual" aria-label="Prévia visual do VibePlay">
+                    <div class="console-neon">
+                        <div class="console-topo">
+                            <span class="console-luzes" aria-hidden="true"><i></i><i></i><i></i></span>
+                            <span>VIBE_OS // ONLINE</span>
+                            <span class="status-online"><i></i> AO VIVO</span>
+                        </div>
+                        <div class="console-tela">
+                            <div class="grade-perspectiva" aria-hidden="true"></div>
+                            <div class="nave-demo" aria-hidden="true"></div>
+                            <div class="obstaculo-demo obstaculo-a" aria-hidden="true"></div>
+                            <div class="obstaculo-demo obstaculo-b" aria-hidden="true"></div>
+                            <div class="mira-demo" aria-hidden="true"></div>
+                            <p>NEON DODGE</p>
+                            <strong>READY?</strong>
+                            <span>PRESSIONE START</span>
+                        </div>
+                        <div class="console-rodape">
+                            <span>SCORE <strong>00980</strong></span>
+                            <span>LEVEL <strong>04</strong></span>
+                            <span>LIVES <strong>♥ ♥ ♥</strong></span>
+                        </div>
+                    </div>
+                    <div class="adesivo adesivo-quiz" aria-hidden="true">QUAL É<br>SUA VIBE?</div>
+                    <div class="adesivo adesivo-play" aria-hidden="true">PLAY!</div>
+                </div>
             </div>
 
-            <div class="cards">
-                <article>
-                    <span>01</span>
-                    <h2>Neon Dodge</h2>
-                    <p>Desvie dos blocos, faça pontos e tente entrar no ranking.</p>
-                </article>
-                <article>
-                    <span>02</span>
-                    <h2>Quiz da Vibe</h2>
-                    <p>Descubra seu perfil de entretenimento com perguntas rápidas.</p>
-                </article>
-                <article>
-                    <span>03</span>
-                    <h2>Mural</h2>
-                    <p>Escreva um recado curto para deixar sua marca no site.</p>
+            <a class="rolar" href="#destaques" aria-label="Rolar para os destaques">
+                <span></span> Explore
+            </a>
+        </section>
+
+        <section id="destaques" class="secao secao-destaques">
+            <div class="container">
+                <div class="cabecalho-secao cabecalho-centralizado">
+                    <p class="eyebrow"><span></span> Escolha sua experiência</p>
+                    <h2>Três jeitos de entrar na <em>vibe</em></h2>
+                    <p>Comece pelo desafio, descubra seu perfil ou compartilhe uma mensagem.</p>
+                </div>
+
+                <div class="cards-destaque">
+                    <article class="card-destaque card-ciano">
+                        <div class="card-numero">01</div>
+                        <div class="card-icone" aria-hidden="true">◆</div>
+                        <p class="card-tag">Arcade</p>
+                        <h3>Neon Dodge</h3>
+                        <p>Desvie dos blocos, avance de nível e dispute um lugar entre os melhores.</p>
+                        <a href="#arcade">Entrar no jogo <span aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="card-destaque card-rosa">
+                        <div class="card-numero">02</div>
+                        <div class="card-icone" aria-hidden="true">?</div>
+                        <p class="card-tag">Personalidade</p>
+                        <h3>Quiz da Vibe</h3>
+                        <p>Responda perguntas rápidas e receba um perfil com dicas feitas para você.</p>
+                        <a href="#quiz">Descobrir minha vibe <span aria-hidden="true">→</span></a>
+                    </article>
+
+                    <article class="card-destaque card-verde">
+                        <div class="card-numero">03</div>
+                        <div class="card-icone" aria-hidden="true">✦</div>
+                        <p class="card-tag">Comunidade local</p>
+                        <h3>Mural da Galera</h3>
+                        <p>Deixe uma mensagem, registre o momento e personalize seu cantinho local.</p>
+                        <a href="#mural">Deixar um recado <span aria-hidden="true">→</span></a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="secao como-funciona" aria-labelledby="tituloComoFunciona">
+            <div class="container como-grid">
+                <div class="cabecalho-secao">
+                    <p class="eyebrow"><span></span> Como funciona</p>
+                    <h2 id="tituloComoFunciona">Diversão em três passos.</h2>
+                    <p>Sem cadastro, instalação ou complicação. É só abrir e aproveitar.</p>
+                </div>
+
+                <ol class="passos">
+                    <li>
+                        <span>01</span>
+                        <div>
+                            <h3>Jogue</h3>
+                            <p>Controle a nave e sobreviva ao ritmo crescente do Neon Dodge.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>02</span>
+                        <div>
+                            <h3>Descubra</h3>
+                            <p>Faça o quiz e veja qual estilo de entretenimento combina com você.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span>03</span>
+                        <div>
+                            <h3>Compartilhe</h3>
+                            <p>Escreva no mural e mantenha seus recados salvos neste navegador.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="arcade" class="secao secao-arcade">
+            <div class="container">
+                <div class="cabecalho-secao cabecalho-com-selo">
+                    <div>
+                        <p class="eyebrow"><span></span> Arcade zone</p>
+                        <h2>Neon Dodge</h2>
+                        <p>Reflexo, ritmo e sangue-frio. Quanto tempo você consegue durar?</p>
+                    </div>
+                    <div class="selo-dificuldade" aria-label="Dificuldade progressiva">
+                        <span>Dificuldade</span>
+                        <strong>Progressiva</strong>
+                    </div>
+                </div>
+
+                <div class="arcade-layout">
+                    <article class="painel-jogo">
+                        <div class="placar" aria-label="Placar atual">
+                            <div>
+                                <span>Pontos</span>
+                                <strong id="pontos">0</strong>
+                            </div>
+                            <div>
+                                <span>Vidas</span>
+                                <strong id="vidas" class="vidas-valor">3</strong>
+                            </div>
+                            <div>
+                                <span>Nível</span>
+                                <strong id="nivel">1</strong>
+                            </div>
+                            <div class="status-jogo">
+                                <span>Status</span>
+                                <strong id="statusJogo"><i></i> Pronto</strong>
+                            </div>
+                        </div>
+
+                        <div class="canvas-container">
+                            <canvas id="canvasJogo" width="760" height="428" aria-label="Área do jogo Neon Dodge">
+                                Seu navegador não oferece suporte ao elemento canvas.
+                            </canvas>
+                        </div>
+
+                        <div class="acoes-jogo">
+                            <button id="iniciarJogo" class="botao botao-primario" type="button">
+                                <span aria-hidden="true">▶</span> Iniciar jogo
+                            </button>
+                            <button id="pausarJogo" class="botao botao-secundario" type="button" disabled>
+                                Pausar
+                            </button>
+                        </div>
+
+                        <div class="controles-mobile" aria-label="Controles para tela sensível ao toque">
+                            <button class="controle-esquerda" data-move="left" type="button" aria-label="Mover para a esquerda">←</button>
+                            <button class="controle-cima" data-move="up" type="button" aria-label="Mover para cima">↑</button>
+                            <button class="controle-baixo" data-move="down" type="button" aria-label="Mover para baixo">↓</button>
+                            <button class="controle-direita" data-move="right" type="button" aria-label="Mover para a direita">→</button>
+                        </div>
+
+                        <form id="formRanking" class="form-ranking escondido" novalidate>
+                            <div>
+                                <p class="eyebrow"><span></span> Fim de partida</p>
+                                <h3>Você marcou <strong id="pontosFinais">0</strong> pontos!</h3>
+                                <p>Salve seu resultado no ranking deste navegador.</p>
+                            </div>
+                            <label for="nomeJogador">Nome do jogador</label>
+                            <div class="campo-acao">
+                                <input id="nomeJogador" type="text" minlength="2" maxlength="18" autocomplete="nickname" placeholder="Digite seu nome">
+                                <button class="botao botao-primario" type="submit">Salvar</button>
+                            </div>
+                            <p id="erroRanking" class="mensagem-form" role="alert"></p>
+                        </form>
+                    </article>
+
+                    <aside class="lateral-arcade">
+                        <section class="painel instrucoes" aria-labelledby="tituloInstrucoes">
+                            <div class="titulo-painel">
+                                <span class="mini-icone" aria-hidden="true">⌨</span>
+                                <div>
+                                    <p>Manual rápido</p>
+                                    <h3 id="tituloInstrucoes">Como jogar</h3>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <span class="teclas" aria-hidden="true"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span>
+                                    <div><strong>Teclado</strong><small>Use WASD ou as setas.</small></div>
+                                </li>
+                                <li>
+                                    <span class="icone-toque" aria-hidden="true">◎</span>
+                                    <div><strong>Celular</strong><small>Segure os botões direcionais.</small></div>
+                                </li>
+                                <li>
+                                    <span class="icone-desvio" aria-hidden="true">◇</span>
+                                    <div><strong>Objetivo</strong><small>Desvie dos blocos e sobreviva.</small></div>
+                                </li>
+                            </ul>
+                            <p class="dica-jogo"><strong>Dica:</strong> a velocidade aumenta a cada nível. Use toda a arena.</p>
+                        </section>
+
+                        <section class="painel ranking" aria-labelledby="tituloRanking">
+                            <div class="ranking-topo">
+                                <div>
+                                    <p>Hall da fama</p>
+                                    <h3 id="tituloRanking">Ranking local</h3>
+                                </div>
+                                <button id="limparRanking" class="botao-icone" type="button" aria-label="Limpar ranking" title="Limpar ranking">×</button>
+                            </div>
+                            <ol id="listaRanking" class="lista-ranking"></ol>
+                            <p class="aviso-local"><span aria-hidden="true">●</span> Salvo somente neste navegador</p>
+                        </section>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz" class="secao secao-quiz">
+            <div class="container quiz-layout">
+                <div class="quiz-intro">
+                    <p class="eyebrow"><span></span> Quiz interativo</p>
+                    <h2>Qual é a sua vibe de entretenimento?</h2>
+                    <p>Sete perguntas separam você do seu próximo rolê ideal. Não existe resposta errada — só estilos diferentes de curtir.</p>
+                    <div class="quiz-mini-card">
+                        <span aria-hidden="true">✦</span>
+                        <p><strong>Resultado personalizado</strong> com perfil, descrição e uma dica para sua próxima diversão.</p>
+                    </div>
+                </div>
+
+                <article class="quiz-box" aria-live="polite">
+                    <div id="quizPerguntas">
+                        <div class="quiz-progresso-topo">
+                            <p id="contadorQuiz">Pergunta 1 de 7</p>
+                            <span id="porcentagemQuiz">14%</span>
+                        </div>
+                        <div class="barra-progresso" aria-hidden="true">
+                            <span id="barraQuiz"></span>
+                        </div>
+                        <h3 id="perguntaQuiz"></h3>
+                        <div id="opcoesQuiz" class="opcoes-quiz"></div>
+                    </div>
+
+                    <div id="resultadoQuiz" class="resultado-quiz escondido">
+                        <p class="resultado-kicker">Sua vibe é</p>
+                        <div id="iconeResultado" class="resultado-icone" aria-hidden="true">✦</div>
+                        <h3 id="tituloResultado"></h3>
+                        <p id="textoResultado"></p>
+                        <div class="dica-resultado">
+                            <span aria-hidden="true">+</span>
+                            <p><strong>Sua próxima diversão</strong><br><span id="dicaResultado"></span></p>
+                        </div>
+                        <button id="refazerQuiz" class="botao botao-primario" type="button">Refazer quiz</button>
+                    </div>
                 </article>
             </div>
         </section>
 
-        <section id="arcade" class="secao">
-            <div class="titulo">
-                <p class="tag">jogo arcade</p>
-                <h2>Neon Dodge</h2>
-                <p>Use as setas, WASD ou os botões do celular para fugir dos obstáculos.</p>
-            </div>
+        <section id="mural" class="secao secao-mural">
+            <div class="container">
+                <div class="cabecalho-secao cabecalho-centralizado">
+                    <p class="eyebrow"><span></span> Mural da galera</p>
+                    <h2>Deixe sua marca no VibePlay</h2>
+                    <p>Uma frase, uma recomendação ou só um “oi”. Este espaço é seu.</p>
+                </div>
 
-            <div class="arcade-grid">
-                <div class="jogo">
-                    <div class="placar">
-                        <strong>Pontos: <span id="pontos">0</span></strong>
-                        <strong>Vidas: <span id="vidas">3</span></strong>
-                        <strong>Nível: <span id="nivel">1</span></strong>
-                    </div>
+                <div class="mural-layout">
+                    <form id="formMural" class="formulario-mural" novalidate>
+                        <div class="form-cabecalho">
+                            <span class="mini-icone" aria-hidden="true">✎</span>
+                            <div>
+                                <p>Novo recado</p>
+                                <h3>O que está rolando?</h3>
+                            </div>
+                        </div>
 
-                    <canvas id="canvasJogo" width="760" height="420"></canvas>
+                        <div class="grupo-campo">
+                            <label for="nomeRecado">Seu nome</label>
+                            <input
+                                id="nomeRecado"
+                                type="text"
+                                minlength="2"
+                                maxlength="25"
+                                autocomplete="name"
+                                placeholder="Como devemos chamar você?"
+                                aria-describedby="ajudaNome"
+                            >
+                            <small id="ajudaNome">Entre 2 e 25 caracteres.</small>
+                        </div>
 
-                    <div class="controles">
-                        <button id="iniciarJogo" class="botao principal" type="button">Iniciar</button>
-                        <button id="pausarJogo" class="botao" type="button">Pausar</button>
-                    </div>
+                        <div class="grupo-campo">
+                            <div class="label-com-contador">
+                                <label for="mensagemRecado">Mensagem</label>
+                                <span id="contadorMensagem">0 / 160</span>
+                            </div>
+                            <textarea
+                                id="mensagemRecado"
+                                minlength="3"
+                                maxlength="160"
+                                rows="5"
+                                placeholder="Compartilhe sua vibe..."
+                                aria-describedby="erroMural"
+                            ></textarea>
+                        </div>
 
-                    <div class="controles-mobile">
-                        <button data-move="left" type="button">←</button>
-                        <button data-move="up" type="button">↑</button>
-                        <button data-move="down" type="button">↓</button>
-                        <button data-move="right" type="button">→</button>
-                    </div>
-
-                    <form id="formRanking" class="form-ranking escondido">
-                        <h3>Fim de jogo</h3>
-                        <p>Sua pontuação foi <span id="pontosFinais">0</span>.</p>
-                        <input id="nomeJogador" type="text" maxlength="18" placeholder="Seu nome">
-                        <button class="botao principal" type="submit">Salvar no ranking</button>
+                        <button class="botao botao-primario botao-largo" type="submit">
+                            Publicar recado <span aria-hidden="true">→</span>
+                        </button>
+                        <p id="erroMural" class="mensagem-form" role="alert"></p>
+                        <p class="privacidade-form"><span aria-hidden="true">◆</span> O recado fica salvo apenas neste dispositivo.</p>
                     </form>
-                </div>
 
-                <aside class="painel">
-                    <h3>Ranking local</h3>
-                    <ol id="listaRanking"></ol>
-                    <p class="aviso">No GitHub Pages, o ranking fica salvo no navegador de cada pessoa.</p>
-                </aside>
-            </div>
-        </section>
-
-        <section id="quiz" class="secao">
-            <div class="titulo">
-                <p class="tag">quiz interativo</p>
-                <h2>Qual é sua vibe de entretenimento?</h2>
-            </div>
-
-            <div class="quiz-box">
-                <p id="contadorQuiz"></p>
-                <h3 id="perguntaQuiz"></h3>
-                <div id="opcoesQuiz" class="opcoes"></div>
-
-                <div id="resultadoQuiz" class="resultado escondido">
-                    <h3 id="tituloResultado"></h3>
-                    <p id="textoResultado"></p>
-                    <button id="refazerQuiz" class="botao principal" type="button">Refazer quiz</button>
-                </div>
-            </div>
-        </section>
-
-        <section id="mural" class="secao">
-            <div class="titulo">
-                <p class="tag">mural da galera</p>
-                <h2>Deixe seu recado</h2>
-            </div>
-
-            <div class="mural-grid">
-                <form id="formMural" class="formulario">
-                    <label for="nomeRecado">Nome</label>
-                    <input id="nomeRecado" type="text" maxlength="25" placeholder="Seu nome">
-
-                    <label for="mensagemRecado">Mensagem</label>
-                    <textarea id="mensagemRecado" maxlength="120" rows="4" placeholder="Escreva até 120 caracteres"></textarea>
-
-                    <button class="botao principal" type="submit">Enviar</button>
-                    <p id="erroMural" class="erro"></p>
-                </form>
-
-                <div>
-                    <h3>Recados</h3>
-                    <div id="listaRecados" class="recados"></div>
+                    <section class="painel-recados" aria-labelledby="tituloRecados">
+                        <div class="recados-topo">
+                            <div>
+                                <p>Mensagens recentes</p>
+                                <h3 id="tituloRecados">Recados</h3>
+                            </div>
+                            <button id="limparRecados" class="botao botao-fantasma" type="button">Limpar meus recados</button>
+                        </div>
+                        <div id="listaRecados" class="lista-recados" aria-live="polite"></div>
+                    </section>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <strong>VibePlay</strong>
-        <p>Projeto simples de entretenimento feito com HTML, CSS e JavaScript para GitHub Pages.</p>
+    <footer class="rodape">
+        <div class="container rodape-grid">
+            <div>
+                <a class="logo" href="#inicio" aria-label="VibePlay - voltar ao início">
+                    <span class="logo-sinal" aria-hidden="true"></span>
+                    Vibe<span>Play</span>
+                </a>
+                <p>Entretenimento neon feito para jogar, descobrir e compartilhar.</p>
+            </div>
+            <nav aria-label="Links do rodapé">
+                <a href="#arcade">Arcade</a>
+                <a href="#quiz">Quiz</a>
+                <a href="#mural">Mural</a>
+            </nav>
+            <p class="rodape-tech">Feito com <strong>HTML</strong> + <strong>CSS</strong> + <strong>JavaScript</strong></p>
+        </div>
+        <div class="container rodape-final">
+            <p>© <span id="anoAtual"></span> VibePlay. Projeto acadêmico de desenvolvimento web.</p>
+            <a href="#inicio">Voltar ao topo ↑</a>
+        </div>
     </footer>
 
     <script src="script.js"></script>
