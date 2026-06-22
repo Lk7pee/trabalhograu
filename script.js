@@ -5,7 +5,8 @@ const $$ = (seletor, contexto = document) => [...contexto.querySelectorAll(selet
 
 const CHAVES_STORAGE = {
     ranking: "vibeplay-ranking",
-    recados: "vibeplay-recados"
+    recados: "vibeplay-recados",
+    tema: "vibeplay-theme"
 };
 
 function lerStorage(chave, valorPadrao = []) {
@@ -31,8 +32,49 @@ function salvarStorage(chave, valor) {
 // Navegação
 const topo = $("#topo");
 const botaoMenu = $("#botaoMenu");
+const botaoTema = $("#botaoTema");
 const linksMenu = $("#linksMenu");
 const linksNavegacao = $$("#linksMenu a");
+const metaThemeColor = $('meta[name="theme-color"]');
+let canvasProntoParaTema = false;
+
+function lerTemaPreferido() {
+    try {
+        return (localStorage.getItem(CHAVES_STORAGE.tema) || "").replaceAll('"', "");
+    } catch (erro) {
+        console.warn("Não foi possível ler o tema salvo.", erro);
+        return "";
+    }
+}
+
+function salvarTemaPreferido(tema) {
+    try {
+        localStorage.setItem(CHAVES_STORAGE.tema, tema);
+    } catch (erro) {
+        console.warn("Não foi possível salvar o tema.", erro);
+    }
+}
+
+function aplicarTema(tema, deveRedesenhar = true) {
+    const temaClaro = tema === "light";
+    document.body.classList.toggle("light-theme", temaClaro);
+
+    if (botaoTema) {
+        botaoTema.textContent = temaClaro ? "Modo escuro" : "Modo claro";
+        botaoTema.setAttribute("aria-label", temaClaro ? "Ativar modo escuro" : "Ativar modo claro");
+    }
+
+    if (metaThemeColor) {
+        metaThemeColor.setAttribute("content", temaClaro ? "#F8F3EA" : "#11100E");
+    }
+
+    if (deveRedesenhar && canvasProntoParaTema) {
+        desenharJogo(performance.now());
+    }
+}
+
+const temaInicial = lerTemaPreferido() === "light" ? "light" : "dark";
+aplicarTema(temaInicial, false);
 
 function fecharMenu() {
     linksMenu.classList.remove("aberto");
@@ -56,6 +98,11 @@ function alternarMenu() {
 }
 
 botaoMenu.addEventListener("click", alternarMenu);
+botaoTema?.addEventListener("click", () => {
+    const proximoTema = document.body.classList.contains("light-theme") ? "dark" : "light";
+    aplicarTema(proximoTema);
+    salvarTemaPreferido(proximoTema);
+});
 linksNavegacao.forEach((link) => link.addEventListener("click", fecharMenu));
 
 document.addEventListener("keydown", (evento) => {
@@ -113,7 +160,7 @@ if ("IntersectionObserver" in window) {
     secoesNavegaveis.forEach((secao) => observadorSecoes.observe(secao));
 }
 
-// Neon Dodge
+// Bloco Rush
 const canvas = $("#canvasJogo");
 const contexto = canvas.getContext("2d");
 const pontosEl = $("#pontos");
@@ -130,7 +177,7 @@ const erroRanking = $("#erroRanking");
 const listaRanking = $("#listaRanking");
 const botaoLimparRanking = $("#limparRanking");
 
-const CORES_JOGO = ["#ff624a", "#ffb000", "#6975ff", "#ffe29a"];
+const CORES_JOGO = ["#F4A261", "#E76F51", "#2A9D8F", "#B56576", "#E9C46A"];
 
 const jogo = {
     rodando: false,
@@ -304,7 +351,7 @@ function atualizarJogo(intervalo, tempoAtual) {
 
     if (novoNivel !== jogo.nivel) {
         jogo.nivel = novoNivel;
-        criarExplosao(jogo.largura / 2, 38, varCor("--ciano"), 18);
+        criarExplosao(jogo.largura / 2, 38, varCor("--accent"), 18);
     }
 
     moverJogador(intervalo);
@@ -445,54 +492,40 @@ function criarExplosao(x, y, cor, quantidade = 18) {
 }
 
 function varCor(nome) {
-    return getComputedStyle(document.documentElement).getPropertyValue(nome).trim();
+    const estiloBody = getComputedStyle(document.body).getPropertyValue(nome).trim();
+    return estiloBody || getComputedStyle(document.documentElement).getPropertyValue(nome).trim();
 }
 
 function desenharFundo() {
-    const gradiente = contexto.createRadialGradient(
-        jogo.largura / 2,
-        jogo.altura * 0.35,
-        10,
-        jogo.largura / 2,
-        jogo.altura * 0.45,
-        jogo.largura * 0.72
-    );
-    gradiente.addColorStop(0, "#2b2112");
-    gradiente.addColorStop(0.52, "#11100d");
-    gradiente.addColorStop(1, "#080705");
-    contexto.fillStyle = gradiente;
+    contexto.fillStyle = varCor("--surface") || "#211F1A";
     contexto.fillRect(0, 0, jogo.largura, jogo.altura);
 
+    contexto.fillStyle = varCor("--surface-2") || "#2A2721";
+    for (let y = 0; y < jogo.altura; y += 86) {
+        contexto.fillRect(0, y, jogo.largura, 34);
+    }
+
     jogo.estrelas.forEach((estrela) => {
-        contexto.globalAlpha = estrela.alpha;
-        contexto.fillStyle = "#fff0c8";
-        contexto.beginPath();
-        contexto.arc(estrela.x, estrela.y, estrela.raio, 0, Math.PI * 2);
-        contexto.fill();
+        contexto.globalAlpha = estrela.alpha * 0.55;
+        contexto.fillStyle = estrela.raio > 1 ? varCor("--accent-3") : varCor("--text-soft");
+        contexto.fillRect(estrela.x, estrela.y, estrela.raio * 2, estrela.raio * 2);
     });
     contexto.globalAlpha = 1;
 
-    const horizonte = jogo.altura * 0.43;
     contexto.save();
-    contexto.strokeStyle = "rgba(255, 176, 0, 0.12)";
+    contexto.strokeStyle = varCor("--border") || "rgba(255, 244, 223, 0.14)";
     contexto.lineWidth = 1;
 
-    for (let y = horizonte; y < jogo.altura; y += 30) {
-        const proporcao = (y - horizonte) / Math.max(1, jogo.altura - horizonte);
-        const yCurvo = horizonte + proporcao * proporcao * (jogo.altura - horizonte);
+    for (let x = jogo.largura / 4; x < jogo.largura; x += jogo.largura / 4) {
         contexto.beginPath();
-        contexto.moveTo(0, yCurvo);
-        contexto.lineTo(jogo.largura, yCurvo);
+        contexto.moveTo(x, 16);
+        contexto.lineTo(x, jogo.altura - 16);
         contexto.stroke();
     }
 
-    const centroX = jogo.largura / 2;
-    for (let indice = -9; indice <= 9; indice += 1) {
-        contexto.beginPath();
-        contexto.moveTo(centroX + indice * 12, horizonte);
-        contexto.lineTo(centroX + indice * jogo.largura * 0.12, jogo.altura);
-        contexto.stroke();
-    }
+    contexto.strokeStyle = varCor("--border-strong") || "rgba(255, 244, 223, 0.28)";
+    contexto.lineWidth = 2;
+    contexto.strokeRect(10, 10, jogo.largura - 20, jogo.altura - 20);
     contexto.restore();
 }
 
@@ -501,13 +534,13 @@ function desenharObstaculos() {
         contexto.save();
         contexto.translate(obstaculo.x, obstaculo.y);
         contexto.rotate(obstaculo.rotacao);
-        contexto.shadowBlur = 15;
-        contexto.shadowColor = obstaculo.cor;
-        contexto.strokeStyle = obstaculo.cor;
-        contexto.fillStyle = `${obstaculo.cor}33`;
+        contexto.strokeStyle = "rgba(17, 16, 14, 0.72)";
+        contexto.fillStyle = obstaculo.cor;
         contexto.lineWidth = 2;
         contexto.fillRect(-obstaculo.tamanho / 2, -obstaculo.tamanho / 2, obstaculo.tamanho, obstaculo.tamanho);
         contexto.strokeRect(-obstaculo.tamanho / 2, -obstaculo.tamanho / 2, obstaculo.tamanho, obstaculo.tamanho);
+        contexto.fillStyle = "rgba(255, 244, 223, 0.24)";
+        contexto.fillRect(-obstaculo.tamanho / 2 + 4, -obstaculo.tamanho / 2 + 4, obstaculo.tamanho * 0.28, obstaculo.tamanho * 0.28);
         contexto.restore();
     });
 }
@@ -517,8 +550,6 @@ function desenharParticulas() {
         contexto.save();
         contexto.globalAlpha = limitar(particula.vida / particula.vidaInicial, 0, 1);
         contexto.fillStyle = particula.cor;
-        contexto.shadowBlur = 8;
-        contexto.shadowColor = particula.cor;
         contexto.fillRect(particula.x, particula.y, particula.tamanho, particula.tamanho);
         contexto.restore();
     });
@@ -532,62 +563,47 @@ function desenharJogador(tempoAtual) {
     contexto.save();
     contexto.translate(jogador.x, jogador.y);
 
-    contexto.fillStyle = "rgba(105, 117, 255, 0.2)";
-    contexto.shadowBlur = 18;
-    contexto.shadowColor = "#6975ff";
+    contexto.fillStyle = "rgba(0, 0, 0, 0.28)";
     contexto.beginPath();
-    contexto.moveTo(-7, jogador.raio * 0.65);
-    contexto.lineTo(0, jogador.raio * 1.8 + Math.random() * 5);
-    contexto.lineTo(7, jogador.raio * 0.65);
-    contexto.closePath();
+    contexto.arc(3, 4, jogador.raio * 0.96, 0, Math.PI * 2);
     contexto.fill();
 
-    const gradiente = contexto.createLinearGradient(0, -jogador.raio, 0, jogador.raio);
-    gradiente.addColorStop(0, "#fff4dc");
-    gradiente.addColorStop(0.45, "#c7f36b");
-    gradiente.addColorStop(1, "#ffb000");
-    contexto.fillStyle = gradiente;
-    contexto.shadowBlur = 18;
-    contexto.shadowColor = "#c7f36b";
+    contexto.fillStyle = varCor("--accent") || "#2A9D8F";
+    contexto.strokeStyle = "rgba(255, 244, 223, 0.34)";
+    contexto.lineWidth = 2;
     contexto.beginPath();
-    contexto.moveTo(0, -jogador.raio * 1.25);
-    contexto.lineTo(jogador.raio, jogador.raio);
-    contexto.lineTo(0, jogador.raio * 0.58);
-    contexto.lineTo(-jogador.raio, jogador.raio);
-    contexto.closePath();
+    contexto.arc(0, 0, jogador.raio, 0, Math.PI * 2);
     contexto.fill();
+    contexto.stroke();
 
-    contexto.fillStyle = "#171106";
+    contexto.fillStyle = varCor("--accent-3") || "#E9C46A";
     contexto.beginPath();
-    contexto.arc(0, 1, 3.2, 0, Math.PI * 2);
+    contexto.arc(0, 0, jogador.raio * 0.42, 0, Math.PI * 2);
     contexto.fill();
     contexto.restore();
 }
 
 function desenharInterfaceCanvas() {
     contexto.save();
-    contexto.font = "700 10px Consolas, monospace";
-    contexto.fillStyle = "rgba(191, 178, 158, 0.68)";
+    contexto.font = "800 11px Segoe UI, sans-serif";
+    contexto.fillStyle = varCor("--text-muted") || "#CBBFA8";
     contexto.fillText(`VELOCIDADE x${(1 + (jogo.nivel - 1) * 0.12).toFixed(2)}`, 13, 21);
     contexto.textAlign = "right";
-    contexto.fillText(`SETOR ${String(jogo.nivel).padStart(2, "0")}`, jogo.largura - 13, 21);
+    contexto.fillText(`NÍVEL ${String(jogo.nivel).padStart(2, "0")}`, jogo.largura - 13, 21);
     contexto.restore();
 }
 
 function desenharMensagemCanvas(titulo, subtitulo) {
     contexto.save();
-    contexto.fillStyle = "rgba(8, 7, 5, 0.74)";
+    contexto.fillStyle = "rgba(17, 16, 14, 0.76)";
     contexto.fillRect(0, 0, jogo.largura, jogo.altura);
     contexto.textAlign = "center";
     contexto.textBaseline = "middle";
-    contexto.shadowBlur = 18;
-    contexto.shadowColor = "#ffb000";
-    contexto.fillStyle = "#fff4dc";
+    contexto.fillStyle = "#FFF4DF";
     contexto.font = `900 ${Math.max(26, Math.min(48, jogo.largura / 13))}px "Segoe UI", sans-serif`;
     contexto.fillText(titulo, jogo.largura / 2, jogo.altura / 2 - 15);
-    contexto.shadowBlur = 0;
-    contexto.fillStyle = "#ffb000";
-    contexto.font = `700 ${Math.max(10, Math.min(13, jogo.largura / 48))}px Consolas, monospace`;
+    contexto.fillStyle = "#E9C46A";
+    contexto.font = `800 ${Math.max(10, Math.min(13, jogo.largura / 48))}px "Segoe UI", sans-serif`;
     contexto.fillText(subtitulo, jogo.largura / 2, jogo.altura / 2 + 30);
     contexto.restore();
 }
@@ -602,7 +618,7 @@ function desenharJogo(tempoAtual = 0) {
     desenharInterfaceCanvas();
 
     if (!jogo.rodando && jogo.vidas > 0) {
-        desenharMensagemCanvas("NEON DODGE", "CLIQUE EM INICIAR PARA JOGAR");
+        desenharMensagemCanvas("BLOCO RUSH", "CLIQUE EM INICIAR PARA JOGAR");
     } else if (jogo.pausado) {
         desenharMensagemCanvas("PAUSADO", "CLIQUE EM CONTINUAR");
     } else if (!jogo.rodando && jogo.vidas <= 0) {
@@ -824,7 +840,7 @@ const perguntasQuiz = [
     {
         texto: "Seu ambiente ideal tem...",
         opcoes: [
-            ["Luzes neon e controles", "gamer"],
+            ["Botões grandes, cores e movimento", "gamer"],
             ["Sofá confortável e tela grande", "cinema"],
             ["Música, conversa e movimento", "social"],
             ["Cores, referências e espaço livre", "criativo"]
@@ -845,7 +861,7 @@ const perfisQuiz = {
     gamer: {
         titulo: "Player Imparável",
         descricao: "Você transforma diversão em missão. Gosta de aprender padrões, superar desafios e sentir aquela evolução nítida a cada tentativa.",
-        dica: "Experimente uma sessão de Neon Dodge e desafie alguém a superar seu placar.",
+        dica: "Experimente uma sessão de Bloco Rush e desafie alguém a superar seu placar.",
         icone: "◆"
     },
     cinema: {
@@ -863,7 +879,7 @@ const perfisQuiz = {
     criativo: {
         titulo: "Criador de Universos",
         descricao: "Você busca o inesperado e enxerga diversão como espaço para inventar. Estética, ideias novas e liberdade para experimentar movem a sua vibe.",
-        dica: "Crie uma playlist visual, um mini desenho ou um conceito inspirado na estética neon.",
+        dica: "Crie uma playlist visual, um mini desenho ou uma rodada temática inspirada na sua diversão favorita.",
         icone: "✎"
     }
 };
@@ -891,6 +907,7 @@ function mostrarPerguntaQuiz() {
 
     quizPerguntas.classList.remove("escondido");
     resultadoQuiz.classList.add("escondido");
+    opcoesQuizEl.classList.remove("travado");
     contadorQuiz.textContent = `Pergunta ${perguntaAtual + 1} de ${perguntasQuiz.length}`;
     porcentagemQuiz.textContent = `${progresso}%`;
     barraQuiz.style.width = `${progresso}%`;
@@ -908,22 +925,30 @@ function mostrarPerguntaQuiz() {
         letra.textContent = String.fromCharCode(65 + indice);
         textoBotao.textContent = texto;
         botao.append(letra, textoBotao);
-        botao.addEventListener("click", () => responderQuiz(perfil));
+        botao.addEventListener("click", () => responderQuiz(perfil, botao));
         opcoesQuizEl.appendChild(botao);
     });
 }
 
-function responderQuiz(perfil) {
-    pontosQuiz[perfil] += 1;
-    ordemRespostas.push(perfil);
-    perguntaAtual += 1;
+function responderQuiz(perfil, botaoSelecionado) {
+    if (opcoesQuizEl.classList.contains("travado")) return;
 
-    if (perguntaAtual < perguntasQuiz.length) {
-        mostrarPerguntaQuiz();
-        return;
-    }
+    opcoesQuizEl.classList.add("travado");
+    botaoSelecionado?.classList.add("selecionada");
 
-    mostrarResultadoQuiz();
+    window.setTimeout(() => {
+        pontosQuiz[perfil] += 1;
+        ordemRespostas.push(perfil);
+        perguntaAtual += 1;
+
+        if (perguntaAtual < perguntasQuiz.length) {
+            mostrarPerguntaQuiz();
+            return;
+        }
+
+        opcoesQuizEl.classList.remove("travado");
+        mostrarResultadoQuiz();
+    }, 180);
 }
 
 function descobrirPerfilVencedor() {
@@ -1129,6 +1154,7 @@ $("#anoAtual").textContent = new Date().getFullYear();
 atualizarPlacar();
 atualizarStatusJogo("Pronto");
 ajustarCanvas();
+canvasProntoParaTema = true;
 carregarRanking();
 mostrarPerguntaQuiz();
 atualizarContadorMensagem();
