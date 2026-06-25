@@ -1,43 +1,38 @@
-# VibePlay
+# BRASA BURGER
 
-O **VibePlay** é um projeto acadêmico e prático de desenvolvimento web voltado para entretenimento casual no navegador. A proposta visual atual é o **VibePlay Lounge**, uma experiência escura, sólida e organizada com três áreas principais: jogo, quiz e mural.
+Site comercial fictício de uma hamburgueria artesanal, desenvolvido para demonstrar como uma experiência de delivery moderna pode ser construída apenas com tecnologias nativas da web.
 
-Todo o projeto foi desenvolvido com HTML, CSS e JavaScript puro, sem frameworks e sem dependências externas.
+O projeto funciona diretamente no navegador, sem instalação, framework, backend ou banco de dados.
 
-## Tecnologias utilizadas
+## Objetivo
 
-- HTML5
-- CSS3
-- JavaScript puro
-- Canvas API
-- Local Storage
+Apresentar a **BRASA BURGER** como uma marca premium e permitir que o visitante conheça o cardápio, filtre produtos, monte um pedido, aplique um cupom e gere uma mensagem pronta para envio pelo WhatsApp.
 
-O projeto:
+## Tecnologias
 
-- não usa frameworks;
-- não usa banco de dados;
-- não usa backend;
-- não usa PHP;
-- não depende de bibliotecas externas ou CDN;
-- funciona diretamente no navegador e no GitHub Pages.
+- HTML5 semântico;
+- CSS3 responsivo, com animações e temas claro/escuro;
+- JavaScript puro;
+- `localStorage` para manter o carrinho, o cupom e o tema no navegador.
 
 ## Funcionalidades
 
-- Tema escuro padrão com modo claro alternativo;
-- Preferência de tema salva no `localStorage`;
-- Página inicial responsiva com conceito **VibePlay Lounge**;
-- Menu desktop e menu hamburguer funcional no celular;
-- Scroll suave e header com efeito ao rolar;
-- Jogo **Bloco Rush** com canvas, teclado, WASD e controles mobile;
-- Pontuação, vidas, níveis, pausa, reinício e dificuldade progressiva;
-- Ranking local do jogo salvo no navegador;
-- **Quiz da Vibe** com progresso, alternativas selecionáveis e resultado personalizado;
-- **Mural da Galera** com nome, mensagem, contador de caracteres e lista de recados;
-- Recados salvos localmente com `localStorage`;
-- Botão de voltar ao topo no rodapé;
-- Layout adaptado para celular, tablet e desktop.
+- Header fixo e menu responsivo;
+- Hero comercial com destaques da marca;
+- Cardápio com 10 produtos e filtros por categoria;
+- Carrinho com inclusão, remoção e controle de quantidade;
+- Cálculo de subtotal, entrega, desconto e total;
+- Frete grátis em pedidos a partir de R$ 100;
+- Cupom `BRASA10` com 10% de desconto;
+- Formulário com validação de nome, endereço e itens;
+- Modal de revisão do pedido;
+- Mensagem formatada para envio pelo WhatsApp;
+- Carrinho salvo temporariamente no `localStorage`;
+- Tema claro/escuro salvo no navegador;
+- Animações ao rolar, navegação ativa e botão de voltar ao topo;
+- Layout adaptado para celular, tablet e computador.
 
-## Estrutura de arquivos
+## Estrutura
 
 ```text
 vibeplay/
@@ -47,31 +42,16 @@ vibeplay/
 └── README.md
 ```
 
-- `index.html`: contém a estrutura semântica e todo o conteúdo do site;
-- `style.css`: define a identidade visual, os temas claro e escuro e a responsividade;
-- `script.js`: controla menu, tema, jogo, quiz, mural, ranking e `localStorage`;
-- `README.md`: apresenta a documentação do projeto.
-
 ## Como executar
 
-Não é necessário instalar programas ou dependências.
+Abra o arquivo `index.html` em qualquer navegador moderno. Não é necessário instalar dependências nem iniciar servidor.
 
-1. Baixe ou clone o repositório.
-2. Abra o arquivo `index.html` em um navegador moderno.
+## Personalização rápida
 
-Também é possível publicar o projeto no GitHub Pages.
+- Número do WhatsApp: altere `WHATSAPP_NUMBER` no início de `script.js`;
+- Produtos e preços: altere o array `products` em `script.js`;
+- Taxa e frete grátis: altere `DELIVERY_FEE` e `FREE_DELIVERY_MINIMUM`;
+- Cores: altere as variáveis no início de `style.css`;
+- Dados de contato: edite a seção `#contato` em `index.html`.
 
-## Como publicar no GitHub Pages
-
-1. Adicione os arquivos ao repositório.
-2. Faça o commit e o push para o GitHub.
-3. No repositório, acesse **Settings > Pages**.
-4. Em **Source**, escolha **Deploy from a branch**.
-5. Selecione a branch `main`.
-6. Selecione a pasta `/root`.
-7. Clique em **Save**.
-8. Aguarde a publicação e acesse o link gerado pelo GitHub.
-
-## Armazenamento local
-
-O tema escolhido, o ranking do Bloco Rush e os recados do mural usam `localStorage`. Isso significa que os dados ficam salvos somente no navegador e no dispositivo de cada visitante. Eles não são enviados para servidor e não são compartilhados entre usuários ou navegadores diferentes.
+> Os dados comerciais, depoimentos, endereço e telefone são fictícios e foram criados para fins acadêmicos.
